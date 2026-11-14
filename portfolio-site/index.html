@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Varalakshmi Nelakurthi Portfolio</title>
+<meta name="description" content="Portfolio of Nelakurthi Varalakshmi, AI Engineer building computer vision, LLM and RAG applications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: single calm column with soft pastel panels; sticky top nav, alternating tinted sections. */
+:root {
+  color-scheme: light;
+  --bg: #F5F8FD;
+  --surface: #FFFFFF;
+  --ink: #2A3550;
+  --muted: #5F6B85;
+  --line: #E1E8F4;
+  --accent: #6F82E0;
+  --accent-soft: #E6EAFC;
+  --mint: #DDF3EA;
+  --mint-ink: #2F6F58;
+  --peach: #FDE9E0;
+  --peach-ink: #9A5A3E;
+  --sky: #DFF0FA;
+  --sky-ink: #2F6684;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.2; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+/* nav */
+.nav { position: sticky; top: 0; z-index: 10; background: rgba(245,248,253,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+.brand { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--ink); }
+.brand:hover { text-decoration: none; }
+.brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--accent-soft), var(--sky)); color: var(--accent); font-size: 1.05rem; }
+.nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; justify-content: flex-end; }
+.nav li a { color: var(--muted); font-size: .95rem; font-weight: 500; }
+.nav li a:hover { color: var(--accent); text-decoration: none; }
+
+/* hero */
+.hero { padding: 72px 0 56px; }
+.hero .grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+.pill { display: inline-flex; align-items: center; gap: 8px; background: var(--mint); color: var(--mint-ink); padding: 6px 14px; border-radius: 999px; font-size: .88rem; font-weight: 600; }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--mint-ink); }
+.hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.6rem); margin: 18px 0 10px; }
+.hero .role { font-family: var(--font-display); font-size: 1.35rem; color: var(--accent); margin-bottom: 18px; font-weight: 500; }
+.hero p.lead { color: var(--muted); max-width: 56ch; font-size: 1.08rem; }
+.btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn { display: inline-block; padding: 12px 22px; border-radius: 12px; font-weight: 600; font-size: .98rem; border: 1px solid transparent; }
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.ghost { background: var(--surface); color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+.card-hero { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 28px; box-shadow: 0 12px 30px rgba(111,130,224,.10); }
+.monogram { width: 84px; height: 84px; border-radius: 22px; background: linear-gradient(135deg, var(--accent-soft), var(--sky)); display: grid; place-items: center; font-family: var(--font-display); font-size: 2rem; color: var(--accent); margin-bottom: 18px; }
+.facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; font-size: .95rem; }
+.facts li { display: grid; grid-template-columns: 76px 1fr; gap: 12px; align-items: baseline; }
+.facts .k { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; }
+.facts .v { min-width: 0; }
+.facts .v a[href^="mailto"] { font-size: .9rem; white-space: nowrap; }
+.facts .dot { color: var(--muted); padding: 0 4px; }
+.resume-btn { margin-top: 24px; width: 100%; cursor: pointer; font-family: inherit; text-align: center; }
+.overlay { position: fixed; inset: 0; z-index: 50; background: rgba(42,53,80,.35); display: none; align-items: flex-start; justify-content: center; padding: 24px 14px; overflow-y: auto; }
+.overlay.open { display: flex; }
+.sheet { background: #fff; width: 100%; max-width: 820px; border-radius: 20px; padding: 56px 16px 16px; box-shadow: 0 20px 50px rgba(42,53,80,.2); position: relative; }
+.resume-img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+.sheet h2 { font-size: 1.7rem; }
+.sheet h3 { font-size: 1.05rem; margin: 22px 0 8px; color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.sheet p, .sheet li { font-size: .95rem; color: var(--ink); }
+.sheet ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 4px; }
+.sheet .sub { color: var(--muted); font-size: .9rem; }
+.sheet .close { position: absolute; top: 14px; right: 14px; background: var(--accent-soft); color: var(--accent); border: 0; border-radius: 10px; padding: 8px 14px; font: 600 .9rem var(--font-body); cursor: pointer; }
+
+/* sections */
+section { padding: 64px 0; }
+section.tint { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sec-head { margin-bottom: 32px; }
+.sec-head h2 { font-size: clamp(1.7rem, 3.4vw, 2.2rem); }
+.sec-head p { color: var(--muted); margin-top: 8px; max-width: 60ch; }
+.bar { width: 44px; height: 4px; border-radius: 4px; background: var(--accent); margin-bottom: 14px; }
+
+/* highlights */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+.stat b { display: block; font-family: var(--font-display); font-size: 1.9rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: .93rem; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
+.skill-box { background: var(--bg); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+.skill-box h3 { font-size: 1.05rem; margin-bottom: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { padding: 5px 12px; border-radius: 999px; font-size: .86rem; font-weight: 500; background: var(--accent-soft); color: #4B5DBB; }
+.skill-box:nth-child(3n+2) .tag { background: var(--mint); color: var(--mint-ink); }
+.skill-box:nth-child(3n) .tag { background: var(--peach); color: var(--peach-ink); }
+
+/* experience */
+.job { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 30px; }
+.job-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; margin-bottom: 6px; }
+.job h3 { font-size: 1.45rem; }
+.job .when { color: var(--muted); font-size: .95rem; font-weight: 500; }
+.job .org { color: var(--accent); font-weight: 600; margin-bottom: 22px; }
+.products { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.product { border: 1px solid var(--line); border-radius: 18px; padding: 24px; background: var(--bg); }
+.product h4 { font-family: var(--font-display); font-size: 1.2rem; margin: 0 0 12px; font-weight: 600; }
+.product .what { margin-bottom: 14px; }
+.product ul { margin: 0 0 16px; padding-left: 20px; color: var(--muted); display: grid; gap: 8px; font-size: .96rem; }
+
+/* projects */
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+.project { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+.project:hover { box-shadow: 0 12px 28px rgba(111,130,224,.12); }
+.project .icon { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.1rem; }
+.project:nth-child(1) .icon { background: var(--sky); color: var(--sky-ink); }
+.project:nth-child(2) .icon { background: var(--peach); color: var(--peach-ink); }
+.project:nth-child(4) .icon { background: var(--accent-soft); color: var(--accent); }
+.project:nth-child(5) .icon { background: var(--sky); color: var(--sky-ink); }
+.project:nth-child(6) .icon { background: var(--peach); color: var(--peach-ink); }
+.project:nth-child(3) .icon { background: var(--mint); color: var(--mint-ink); }
+.project h3 { font-size: 1.3rem; }
+.project p { color: var(--muted); }
+.project .links { margin-top: auto; display: flex; flex-wrap: wrap; gap: 8px 18px; padding-top: 6px; font-weight: 600; }
+
+/* education */
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.cert { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; border-top: 4px solid var(--accent); }
+.cert:nth-child(2) { border-top-color: #7CCBA9; }
+.cert:nth-child(3) { border-top-color: #F2A98B; }
+.cert { display: flex; flex-direction: column; gap: 4px; }
+.cert-thumb { display: block; width: 100%; aspect-ratio: 4 / 3; margin-bottom: 12px; padding: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); cursor: zoom-in; overflow: hidden; }
+.cert-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.cert-thumb:hover { border-color: var(--accent); }
+.lightbox .sheet { max-width: 1000px; }
+.cert b { display: block; font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; }
+.cert span { color: var(--muted); font-size: .93rem; }
+.panel { background: var(--bg); border: 1px solid var(--line); border-radius: 22px; padding: 28px; }
+.panel h3 { font-size: 1.25rem; margin-bottom: 10px; }
+.panel .meta { color: var(--muted); font-size: .95rem; }
+.cgpa { display: inline-block; margin-top: 14px; background: var(--mint); color: var(--mint-ink); padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: .92rem; }
+.certs { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 12px; }
+.certs li { padding-left: 22px; position: relative; }
+.certs li::before { content: ""; position: absolute; left: 0; top: .6em; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+.certs small { display: block; color: var(--muted); font-size: .88rem; }
+
+/* contact */
+.contact { background: linear-gradient(135deg, var(--accent-soft), var(--sky)); border-radius: 28px; padding: 44px 36px; text-align: center; }
+.contact h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); margin-bottom: 10px; }
+.contact p { color: var(--muted); max-width: 52ch; margin: 0 auto; }
+.contact .btns { justify-content: center; }
+.contact .plain { margin-top: 22px; font-size: .95rem; color: var(--muted); }
+footer { padding: 28px 0 40px; text-align: center; color: var(--muted); font-size: .9rem; }
+
+@media (max-width: 1000px) {
+  .hero .grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .hero .grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .facts li { grid-template-columns: 1fr; gap: 2px; }
+  .facts .v a[href^="mailto"] { font-size: .85rem; }
+  .sheet { padding: 52px 8px 8px; }
+  body { font-size: 16px; }
+  .wrap { padding: 0 18px; }
+  .nav ul { gap: 14px; }
+  .nav li:nth-child(4), .nav li:nth-child(5) { display: none; }
+  .hero { padding-top: 44px; }
+  .job, .project, .panel { padding: 22px; }
+  .contact { padding: 34px 20px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn:hover { transform: none; } }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Home"><span class="brand-mark">NV</span></a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap grid">
+      <div>
+        <span class="pill">AI Engineer · Open to opportunities</span>
+        <h1>Nelakurthi Varalakshmi</h1>
+        <div class="role">Building intelligent AI applications</div>
+        <p class="lead">I turn ideas into working AI products, from computer vision pipelines that watch for safety issues to LLM assistants that answer questions from real content. I like building practical, dependable systems that make everyday tasks easier.</p>
+        <div class="btns">
+          <a class="btn primary" href="#projects">View my work</a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <aside class="card-hero" aria-label="Quick facts">
+        <div class="monogram" aria-hidden="true">NV</div>
+        <ul class="facts">
+          <li><span class="k">Location</span><span class="v">Visakhapatnam, India</span></li>
+          <li><span class="k">Degree</span><span class="v">B.Tech, AI &amp; ML</span></li>
+          <li><span class="k">Mobile</span><span class="v"><a href="tel:+917620278523">+91 7620278523</a></span></li>
+          <li><span class="k">Email</span><span class="v"><a href="mailto:nelakurthivaralakshmi@gmail.com">nelakurthivaralakshmi@gmail.com</a></span></li>
+          <li><span class="k">Profiles</span><span class="v"><a href="https://github.com/nelakurthivaralakshmi03">GitHub</a> <span class="dot">·</span> <a href="https://www.linkedin.com/in/varalakshmi-nelakurthi-b46986272/">LinkedIn</a></span></li>
+        </ul>
+        <button type="button" class="btn primary resume-btn" id="open-resume">View resume</button>
+      </aside>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats" aria-label="Highlights">
+      <div class="stat"><b>2</b><span>AI products shipped in industry</span></div>
+      <div class="stat"><b>8</b><span>Months as an AI engineer</span></div>
+      <div class="stat"><b>2</b><span>LLM-powered projects</span></div>
+      <div class="stat"><b>3</b><span>Certifications earned</span></div>
+    </div>
+  </div>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head"><div class="bar"></div><h2>Technical skills</h2><p>The tools I reach for across AI, backend and cloud work.</p></div>
+      <div class="skills">
+        <div class="skill-box"><h3>Machine learning &amp; data</h3><div class="tags"><span class="tag">Machine Learning</span><span class="tag">Deep Learning</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span><span class="tag">Tableau</span><span class="tag">Data Cleaning</span></div></div>
+        <div class="skill-box"><h3>Computer vision</h3><div class="tags"><span class="tag">OpenCV</span><span class="tag">YOLOv8</span><span class="tag">MediaPipe</span></div></div>
+        <div class="skill-box"><h3>Generative AI &amp; LLMs</h3><div class="tags"><span class="tag">LLMs</span><span class="tag">RAG</span><span class="tag">LangChain</span><span class="tag">Groq API</span><span class="tag">Sentence-Transformers</span><span class="tag">FAISS</span><span class="tag">Qwen 7B</span></div></div>
+        <div class="skill-box"><h3>Backend &amp; APIs</h3><div class="tags"><span class="tag">FastAPI</span><span class="tag">Flask</span><span class="tag">REST APIs</span><span class="tag">RabbitMQ</span><span class="tag">Streamlit</span></div></div>
+        <div class="skill-box"><h3>Databases</h3><div class="tags"><span class="tag">MongoDB</span><span class="tag">MySQL</span><span class="tag">DBMS</span></div></div>
+        <div class="skill-box"><h3>Cloud &amp; developer tools</h3><div class="tags"><span class="tag">AWS S3</span><span class="tag">RunPod</span><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span></div></div>
+        <div class="skill-box"><h3>Languages &amp; web</h3><div class="tags"><span class="tag">Python</span><span class="tag">C</span><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="tint">
+    <div class="wrap">
+      <div class="sec-head"><div class="bar"></div><h2>Experience</h2></div>
+      <article class="job">
+        <div class="job-top"><h3>AI Engineer</h3><span class="when">March 2026 – October 2026</span></div>
+        <div class="org">Sconex Software Solutions · Visakhapatnam</div>
+        <div class="products">
+          <div class="product">
+            <h4>Loco Pilot Monitoring System</h4>
+            <p class="what">A monitoring system that reviews locomotive cabin footage and automatically flags driver distraction and safety violations.</p>
+            <ul>
+              <li>Built the video analysis that detects unsafe driver behaviour.</li>
+              <li>Created FastAPI services to run inference and produce reports.</li>
+              <li>Hosted the models on RunPod GPUs and saved violation images and reports to AWS S3.</li>
+            </ul>
+            <div class="tags"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">YOLOv8</span><span class="tag">MediaPipe</span><span class="tag">RabbitMQ</span><span class="tag">FastAPI</span><span class="tag">AWS S3</span><span class="tag">RunPod</span></div>
+          </div>
+          <div class="product">
+            <h4>SafeFare AI Chatbot</h4>
+            <p class="what">A website assistant that answers visitor questions about the SafeFare AI platform and what it can do.</p>
+            <ul>
+              <li>Connected a Groq-hosted LLM to give replies that fit the question's context.</li>
+              <li>Used MiniLM embeddings so questions find the most relevant site content.</li>
+              <li>Put together a retrieval-based answering flow grounded in the website's own pages.</li>
+            </ul>
+            <div class="tags"><span class="tag">Python</span><span class="tag">Groq API</span><span class="tag">Sentence-Transformers</span><span class="tag">Semantic Search</span><span class="tag">RAG</span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head"><div class="bar"></div><h2>Projects</h2><p>Personal and academic projects that put LLMs and retrieval to work.</p></div>
+      <div class="projects">
+        <article class="project">
+          <div class="icon" aria-hidden="true">Q</div>
+          <h3>Adaptive Student Learning Assistant</h3>
+          <p>A study platform that turns textbook units into quizzes with easy explanations, so students can check what they have learned.</p>
+          <div class="tags"><span class="tag">LangChain</span><span class="tag">Gemini API</span><span class="tag">FAISS</span><span class="tag">MongoDB</span><span class="tag">Flask</span></div>
+          <div class="links"><a href="https://adaptive-learn-ai.vercel.app/">Live demo →</a></div>
+        </article>
+        <article class="project">
+          <div class="icon" aria-hidden="true">M</div>
+          <h3>Medical Report Analyzer &amp; Diet Suggestor</h3>
+          <p>An app that reads lab values from uploaded reports and returns simple health insights, charts and diet suggestions.</p>
+          <div class="tags"><span class="tag">Gemini</span><span class="tag">Streamlit</span><span class="tag">Pandas</span><span class="tag">Matplotlib</span><span class="tag">LangChain</span></div>
+          <div class="links"><a href="https://github.com/nelakurthivaralakshmi03/medicalreportanalyzer_and_dietsuggestor">GitHub repository →</a></div>
+        </article>
+        <article class="project">
+          <div class="icon" aria-hidden="true">C</div>
+          <h3>WhatsApp Chat Analysis Dashboard</h3>
+          <p>A Tableau dashboard built from a WhatsApp chat export. It shows who talks more, how long messages are, the busiest hours, emoji use and active versus passive participation.</p>
+          <div class="tags"><span class="tag">Tableau</span><span class="tag">Data Cleaning</span><span class="tag">Calculated Fields</span><span class="tag">Dashboard Design</span></div>
+          <div class="links"><a href="https://public.tableau.com/app/profile/varalakshmi.nelakurthi/viz/chatanalysis/Dashboard1">View dashboard →</a></div>
+        </article>
+        <article class="project">
+          <div class="icon" aria-hidden="true">P</div>
+          <h3>Placement Analysis Report (2022–2025)</h3>
+          <p>An interactive Tableau dashboard that tracks four years of campus placements. Pick a year to see average and highest CTC, hiring trends, top recruiters and high-package offers.</p>
+          <div class="tags"><span class="tag">Tableau</span><span class="tag">Data Cleaning</span><span class="tag">Calculated Fields</span><span class="tag">Parameters</span></div>
+          <div class="links"><a href="https://public.tableau.com/app/profile/varalakshmi.nelakurthi/viz/Placement_Analysis_Report_ANITS/Placemet_Analysis_Report_ANITS?publish=yes">View dashboard →</a></div>
+        </article>
+        <article class="project">
+          <div class="icon" aria-hidden="true">A</div>
+          <h3>Aptitude Quiz Race</h3>
+          <p>A competitive quiz app for practising logical reasoning and analytical skills, with timed questions, automatic scoring and instant results.</p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Flask</span><span class="tag">MongoDB</span></div>
+          <div class="links"><a href="https://github.com/nelakurthivaralakshmi03/aqr">GitHub repository →</a></div>
+        </article>
+        <article class="project">
+          <div class="icon" aria-hidden="true">S</div>
+          <h3>Student Grade Predictor</h3>
+          <p>A web app that predicts student grades from academic performance data using a Random Forest model (86% accuracy), with visual insights for students and educators.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Random Forest</span><span class="tag">Flask</span><span class="tag">HTML</span><span class="tag">CSS</span></div>
+          <div class="links"><a href="https://github.com/nelakurthivaralakshmi03/student-grade-predictor">GitHub repository →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="tint">
+    <div class="wrap">
+      <div class="sec-head"><div class="bar"></div><h2>Education</h2></div>
+      <div class="panel">
+        <h3>B.Tech in Artificial Intelligence &amp; Machine Learning</h3>
+        <p class="meta">Anil Neerukonda Institute of Technology and Sciences · 2022 – 2026</p>
+        <span class="cgpa">CGPA 9.2 / 10</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <div class="wrap">
+      <div class="sec-head"><div class="bar"></div><h2>Certifications</h2></div>
+      <div class="cert-grid">
+        <div class="cert">
+          <button type="button" class="cert-thumb" data-full="ibm" aria-label="View IBM SkillsBuild certificate larger"><img src="images/cert-ibm.png" alt="IBM SkillsBuild certificate"></button>
+          <b>Generative AI</b><span>IBM SkillsBuild</span>
+        </div>
+        <div class="cert">
+          <button type="button" class="cert-thumb" data-full="cisco" aria-label="View Cisco certificate larger"><img src="images/cert-cisco.png" alt="Cisco certificate"></button>
+          <b>Data Science Fundamentals</b><span>Cisco Networking Academy</span>
+        </div>
+        <div class="cert">
+          <button type="button" class="cert-thumb" data-full="edx" aria-label="View edX certificate larger"><img src="images/cert-edx.png" alt="edX certificate"></button>
+          <b>Advanced Prompt Engineering</b><span>edX</span>
+        </div>
+        </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Let's build something useful</h2>
+        <p>I'm open to AI engineering roles and collaborations. The quickest way to reach me is by email.</p>
+        <div class="btns">
+          <a class="btn primary" href="mailto:nelakurthivaralakshmi@gmail.com">Email me</a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/varalakshmi-nelakurthi-b46986272/">LinkedIn</a>
+          <a class="btn ghost" href="https://github.com/nelakurthivaralakshmi03">GitHub</a>
+        </div>
+        <p class="plain">nelakurthivaralakshmi@gmail.com · +91 7620278523 · Visakhapatnam, Andhra Pradesh, India</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© 2026 Nelakurthi Varalakshmi</div></footer>
+
+<div class="overlay" id="resume-overlay" role="dialog" aria-modal="true" aria-labelledby="resume-title">
+  <div class="sheet">
+    <button type="button" class="close" id="close-resume">Close</button>
+    <img class="resume-img" alt="Resume of Nelakurthi Varalakshmi, AI Engineer: summary, technical skills, experience at Sconex Software Solutions, projects, education and certifications." src="images/resume.png">
+  </div>
+</div>
+
+<div class="overlay lightbox" id="cert-overlay" role="dialog" aria-modal="true" aria-label="Certificate">
+  <div class="sheet">
+    <button type="button" class="close" id="close-cert">Close</button>
+    <img class="resume-img" id="cert-full" alt="Certificate enlarged" src="">
+  </div>
+</div>
+<script>
+(function () {
+  var o = document.getElementById('resume-overlay');
+  function open() { o.classList.add('open'); }
+  function close() { o.classList.remove('open'); }
+  document.getElementById('open-resume').addEventListener('click', open);
+  document.getElementById('close-resume').addEventListener('click', close);
+  o.addEventListener('click', function (e) { if (e.target === o) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+(function () {
+  var o = document.getElementById('cert-overlay'), big = document.getElementById('cert-full');
+  var btns = document.querySelectorAll('.cert-thumb');
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () { big.src = b.querySelector('img').src; big.alt = b.querySelector('img').alt; o.classList.add('open'); });
+  });
+  function close() { o.classList.remove('open'); }
+  document.getElementById('close-cert').addEventListener('click', close);
+  o.addEventListener('click', function (e) { if (e.target === o) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>
+</body>
+</html>
